@@ -35,23 +35,32 @@ public partial class MainWindow : Window
         var opdKeys = data.Item2.Keys.ToList();
         int maxRows = Math.Max(opKeys.Count, opdKeys.Count);
 
+        int totalOp = 0;
+        int totalOpd = 0;
         for (int i = 0; i < maxRows; i++)
         {
             items.Add(new TokenItem
             {
-                Operator = opKeys.Count > 0 ? opKeys[i] : "",
-                OperatorCount = opKeys.Count > 0 ? data.Item1[opKeys[i]].ToString() : "",
-                Operand = opdKeys.Count > 0 ? opdKeys[i] : "",
-                OperandCount = opdKeys.Count > 0 ? data.Item2[opdKeys[i]].ToString() : ""
+                Operator = i < opKeys.Count ? opKeys[i] : "",
+                OperatorCount = i < opKeys.Count ? data.Item1[opKeys[i]].ToString() : "",
+                Operand = i < opdKeys.Count ? opdKeys[i] : "",
+                OperandCount = i < opdKeys.Count ? data.Item2[opdKeys[i]].ToString() : ""
             });
+            totalOp += data.Item1[opKeys[i]];
+            totalOpd += data.Item2[opKeys[i]];
         }
 
         dataGrid.ItemsSource = items;
 
         string metricsText = "";
         var metrics = halstead.GetMetrics(typescriptCode);
-        metricsText += $"\n  Volume: {metrics.Volume:F2}\n";
-
+        metricsText += $"  Словарь операторов: {opKeys.Count:F2}\n";
+        metricsText += $"  Словарь операндов: {opdKeys.Count:F2}\n";
+        metricsText += $"  Всего операторов: {totalOp:F2}\n";
+        metricsText += $"  Всего операндов: {opdKeys.Count:F2}\n";
+        metricsText += $"  Словарь программы: {opdKeys.Count + opKeys.Count:F2}\n";
+        metricsText += $"  Длина программы: {totalOp + totalOpd:F2}\n";
+        metricsText += $"  Объём программы: {metrics.Volume:F2}\n";
         // metricsText += $"Difficulty: {metrics.Difficulty:F2}\n";
         // metricsText += $"Effort: {metrics.Effort:F2}\n";
         tbMetrics.Text = metricsText;
