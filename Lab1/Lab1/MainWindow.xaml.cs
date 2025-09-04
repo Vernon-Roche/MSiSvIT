@@ -46,7 +46,8 @@ public partial class MainWindow : Window
                 Operand = i < opdKeys.Count ? opdKeys[i] : "",
                 OperandCount = i < opdKeys.Count ? data.Item2[opdKeys[i]].ToString() : ""
             });
-            totalOp += data.Item1[opKeys[i]];
+            if (data.Item1.TryGetValue(opKeys[i], out int value))
+                totalOp += value;
             totalOpd += data.Item2[opKeys[i]];
         }
 

@@ -38,6 +38,4 @@ C:\Users\Andrei\Source\Repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\Lab1.pdb
 C:\Users\Andrei\Source\Repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\Lab1.genruntimeconfig.cache
 C:\Users\Andrei\Source\Repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\ref\Lab1.dll
 C:\Users\Andrei\source\repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\MainWindow.g.cs
-C:\Users\Andrei\source\repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\Window1.g.cs
 C:\Users\Andrei\source\repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\MainWindow.baml
-C:\Users\Andrei\source\repos\MSiSvIT\Lab1\Lab1\obj\Debug\net9.0-windows\Window1.baml
