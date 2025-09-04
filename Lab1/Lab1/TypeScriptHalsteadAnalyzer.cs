@@ -130,6 +130,23 @@ public class Halstead
         }
     }
 
+    public static void RemoveZeroValues(Dictionary<string, int> dictionary)
+    {
+        var keysToRemove = new List<string>();
+        foreach (var kvp in dictionary)
+        {
+            if (kvp.Value == 0)
+            {
+                keysToRemove.Add(kvp.Key);
+            }
+        }
+
+        foreach (var key in keysToRemove)
+        {
+            dictionary.Remove(key);
+        }
+    }
+
     public Tuple<Dictionary<string, int>, Dictionary<string, int>> ParseTypeScript(string text)
     {
         Refresh();
@@ -142,6 +159,9 @@ public class Halstead
         _operators = newOperatorsMap;
 
         ReduceRepeatingOperators(_operators);
+
+        // так надо
+        RemoveZeroValues(_operators);
 
         return Tuple.Create(_operators, _operands);
     }
