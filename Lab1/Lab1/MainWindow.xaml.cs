@@ -46,9 +46,10 @@ public partial class MainWindow : Window
                 Operand = i < opdKeys.Count ? opdKeys[i] : "",
                 OperandCount = i < opdKeys.Count ? data.Item2[opdKeys[i]].ToString() : ""
             });
-            if (data.Item1.TryGetValue(opKeys[i], out int value))
+            if (i < opKeys.Count && data.Item1.TryGetValue(opKeys[i], out int value))
                 totalOp += value;
-            totalOpd += data.Item2[opdKeys[i]];
+            if (i < opdKeys.Count)
+                totalOpd += data.Item2[opdKeys[i]];
         }
 
         dataGrid.ItemsSource = items;
