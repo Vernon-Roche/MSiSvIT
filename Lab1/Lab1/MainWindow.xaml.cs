@@ -1,11 +1,16 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections;
+using System.ComponentModel;
 using System.IO;
-using Microsoft.Win32;
 using System.Text;
 using System.Windows;
-
+using System.Windows.Data;
 
 namespace Lab1;
+
+
+// т
 
 
 public partial class MainWindow : Window
@@ -26,6 +31,24 @@ public partial class MainWindow : Window
         }
     }
 
+    public static void SortByOperatorCountNonZeroFirst(List<TokenItem> items)
+    {
+        items.Sort((x, y) =>
+        {
+            bool isXZero = !int.TryParse(x.OperatorCount, out int countX) || countX == 0;
+            bool isYZero = !int.TryParse(y.OperatorCount, out int countY) || countY == 0;
+
+            if (isXZero && isYZero)
+                return string.Compare(x.Operator, y.Operator, StringComparison.Ordinal);
+            if (isXZero) return 1;
+
+            if (isYZero) return -1;
+
+            return countY.CompareTo(countX); 
+                                          
+        });
+    }
+
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         var halstead = new Halstead();     
@@ -39,19 +62,38 @@ public partial class MainWindow : Window
         int totalOpd = 0;
         for (int i = 0; i < maxRows; i++)
         {
-            items.Add(new TokenItem
+            var item = new TokenItem
             {
                 Operator = i < opKeys.Count ? opKeys[i] : "",
                 OperatorCount = i < opKeys.Count ? data.Item1[opKeys[i]].ToString() : "",
                 Operand = i < opdKeys.Count ? opdKeys[i] : "",
                 OperandCount = i < opdKeys.Count ? data.Item2[opdKeys[i]].ToString() : ""
-            });
-            if (i < opKeys.Count && data.Item1.TryGetValue(opKeys[i], out int value))
-                totalOp += value;
-            if (i < opdKeys.Count)
-                totalOpd += data.Item2[opdKeys[i]];
+            };
+            if (item.OperatorCount.Equals("0"))
+            {
+                item.Operator = "";
+                item.OperatorCount = "";
+            }
+            else
+            {
+                if (i < opKeys.Count && data.Item1.TryGetValue(opKeys[i], out int value))
+                    totalOp += value;
+            }
+            if (item.OperatorCount.Equals("0"))
+            {
+                item.Operand = "";
+                item.OperandCount = "";
+            }
+            else
+            {
+                if (i < opdKeys.Count)
+                    totalOpd += data.Item2[opdKeys[i]];
+            }
+            if (!(item.OperatorCount.Equals("0") && item.OperatorCount.Equals("0")))
+                items.Add(item);        
         }
 
+        SortByOperatorCountNonZeroFirst(items);
         dataGrid.ItemsSource = items;
 
         string metricsText = "";
@@ -59,7 +101,7 @@ public partial class MainWindow : Window
         metricsText += $"  Словарь операторов: {opKeys.Count:F2}\n";
         metricsText += $"  Словарь операндов: {opdKeys.Count:F2}\n";
         metricsText += $"  Всего операторов: {totalOp:F2}\n";
-        metricsText += $"  Всего операндов: {opdKeys.Count:F2}\n";
+        metricsText += $"  Всего операндов: {totalOpd:F2}\n";
         metricsText += $"  Словарь программы: {opdKeys.Count + opKeys.Count:F2}\n";
         metricsText += $"  Длина программы: {totalOp + totalOpd:F2}\n";
         metricsText += $"  Объём программы: {metrics.Volume:F2}\n";
