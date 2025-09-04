@@ -1,4 +1,7 @@
-﻿namespace Lab1;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
+
+namespace Lab1;
 
 public class Halstead
 {
@@ -130,7 +133,7 @@ public class Halstead
         }
     }
 
-    public static void RemoveZeroValues(Dictionary<string, int> dictionary)
+    private static void RemoveZeroValues(Dictionary<string, int> dictionary)
     {
         var keysToRemove = new List<string>();
         foreach (var kvp in dictionary)
@@ -162,6 +165,8 @@ public class Halstead
 
         // так надо
         RemoveZeroValues(_operators);
+        // так тоже надо
+        _operands.Remove("");
 
         return Tuple.Create(_operators, _operands);
     }
