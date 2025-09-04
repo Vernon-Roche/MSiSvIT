@@ -48,7 +48,7 @@ public partial class MainWindow : Window
             });
             if (data.Item1.TryGetValue(opKeys[i], out int value))
                 totalOp += value;
-            totalOpd += data.Item2[opKeys[i]];
+            totalOpd += data.Item2[opdKeys[i]];
         }
 
         dataGrid.ItemsSource = items;
