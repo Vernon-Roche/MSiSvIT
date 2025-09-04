@@ -5,13 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="597" Width="800">
+    <Grid Margin="0,0,0,28">
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="87*"></RowDefinition>
+            <RowDefinition Height="23*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox x:Name="tb" FontSize="14" Grid.Row="0"></TextBox>
-        <Button Grid.Row="1" Click="Button_Click"></Button>
+        <Menu>
+            <MenuItem>
+                <MenuItem.Header>Файл</MenuItem.Header>
+                <Menu>
+                    <MenuItem Click="OpenFileClick">
+                        <MenuItem.Header>Открыть</MenuItem.Header>
+                    </MenuItem>
+
+                </Menu>
+            </MenuItem>
+        </Menu>
+        <TextBox x:Name="tbMetrics" FontSize="14" Grid.Row="1" Margin="350,10,10,-11"/>
+
+        <TextBox x:Name="tbCode" FontSize="10" Margin="10,24,535,10" FontFamily="Cascadia Code"/>
+
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="270,24,24,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Operator" Binding="{Binding Operator}" Width="*"/>
+                <DataGridTextColumn Header="Operaort Count" Binding="{Binding OperatorCount}" Width="*"/>
+                <DataGridTextColumn Header="Operand" Binding="{Binding Operand}" Width="*"/>
+                <DataGridTextColumn Header="Operand Count" Binding="{Binding OperandCount}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="1" Click="Button_Click" FontSize="20" FontFamily="Cascadia Code" Margin="10,10,455,-11">Рассчитать метрики Холстеда</Button>
     </Grid>
 </Window>
