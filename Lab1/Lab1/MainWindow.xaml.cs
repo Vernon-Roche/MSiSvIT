@@ -39,10 +39,10 @@ public partial class MainWindow : Window
         {
             items.Add(new TokenItem
             {
-                Operator = i < opKeys.Count ? opKeys[i] : "",
-                OperatorCount = i < opKeys.Count ? data.Item1[opKeys[i]].ToString() : "",
-                Operand = i < opdKeys.Count ? opdKeys[i] : "",
-                OperandCount = i < opdKeys.Count ? data.Item2[opdKeys[i]].ToString() : ""
+                Operator = opKeys.Count > 0 ? opKeys[i] : "",
+                OperatorCount = opKeys.Count > 0 ? data.Item1[opKeys[i]].ToString() : "",
+                Operand = opdKeys.Count > 0 ? opdKeys[i] : "",
+                OperandCount = opdKeys.Count > 0 ? data.Item2[opdKeys[i]].ToString() : ""
             });
         }
 
@@ -51,6 +51,7 @@ public partial class MainWindow : Window
         string metricsText = "";
         var metrics = halstead.GetMetrics(typescriptCode);
         metricsText += $"\n  Volume: {metrics.Volume:F2}\n";
+
         // metricsText += $"Difficulty: {metrics.Difficulty:F2}\n";
         // metricsText += $"Effort: {metrics.Effort:F2}\n";
         tbMetrics.Text = metricsText;
